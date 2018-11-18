@@ -1,6 +1,6 @@
 ---
 title: "Social Survey 2010"
-author: "Put your name here!"
+author: "Jonathan Teo"
 date: "Fall 2018"
 output:
   html_document:
@@ -29,7 +29,6 @@ Use the data from the 2010 general social survey to explore whether belief in co
 
 ```{r}
 alldata <- read.csv(file="gss2010.csv", header=TRUE)
-#names(alldata)
 ```
 
 
@@ -42,17 +41,58 @@ alldata <- read.csv(file="gss2010.csv", header=TRUE)
 ```{r}
 barchartGC(~race+condrift, data=alldata, type = "percent") 
 ```
+From the graph, it seems to show that all three parties, black, white and other all believe in the continental drift (condrift) and believe it is true 
+
+```{r}
+barchartGC(~race+cappun, data=alldata, type = "percent")
+```
+In the graph it shows that black races oppose capitol punishment (cappun),but you can see that the black race was almost in favor with capitol punishment (cappun) and it wasw really close, while white races and other races are in favor of capitol punishment (cappun) by a large margin.
 
 
+```{r}
+barchartGC(~condrift+cappun, data=alldata, type = "percent")
+```
+In the graph we can see that the results are independent from each other since all the categories have a difference in there favor and there opposing views. Example would be the big gap in favor among the black race and white race
 ### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+tab = xtabs(~race+condrift, data=alldata)
+rowPerc(tab)
+colPerc(tab)
+```
+
+
+```{r}
+tab = xtabs(~race+cappun, data=alldata)
+rowPerc(tab)
+colPerc(tab)
+```
+
+
+```{r}
+tab = xtabs(~cappun+condrift, data=alldata)
+rowPerc(tab)
+colPerc(tab)
+```
+As we can see in the charts, the black race are  less in favor of capital punishment compare to the white race. We can also see in the first chart that every race is in the majority and think condrift is true.
 ## Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+```{r}
+chisqtestGC(~race+condrift, data=alldata, graph=TRUE)
+```
 
+```{r}
+chisqtestGC(~race+cappun, data=alldata, graph=TRUE)
+```
 
+```{r}
+chisqtestGC(~cappun+condrift, data=alldata, graph=TRUE)
+```
+From the results we have gathered we are going to deny the null hypothesis because the P-Value is really low.  
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+From the graph it seems the resluts are not independent from eachother since each category has a difference in their favor and opposing views.Capital punishment and continnental drift were dependent of each other based on race. 
